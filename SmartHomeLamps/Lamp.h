@@ -27,7 +27,7 @@ public:
 protected:
 	bool state;						// ki-be kapcsolt állapot
 	std::string room;				// lámpa helye
-	const std::string type;			// a lámpa tipusa
+	const std::string lampName;			// a lámpa tipusa
 	const std::string brand;		// a lámpa márkája
 	const Power pwr;				// teljesítmény
 };

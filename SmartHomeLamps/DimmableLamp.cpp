@@ -24,7 +24,7 @@ void DimmableLamp::setBrightness(int value) {
 int DimmableLamp::getBrightness() { return brightness; }
 
 std::string DimmableLamp::toString() const {
-	return brand + " " + type
+	return brand + " " + lampName
 		+ " (" + std::to_string(pwr.value) + pwr.unit + "): "
 		+ (state ? "be" : "ki") + " [dim is: " + std::to_string(brightness) + "/" + std::to_string(range) + "]";
 }

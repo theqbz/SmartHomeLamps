@@ -8,30 +8,50 @@ struct Power {
 
 class Lamp {
 public:
-	Lamp();
-	Lamp(std::string type, std::string brand, int pwrValue, std::string pwrUnit);
-	Lamp& operator=(Lamp& other);
+	Lamp(std::string lampname) :lampName(lampname) {
+		state = false;
+	}
 
-	void setState(bool OnOff);				// ki-be kapcsoló
-	bool getState();						// ki-be kapcsolt állapot lekérdezése
-	void setRoom(std::string);				// a lámpa helyének beállítása
-	std::string getRoom() const;			// a lámpa helyének lekérdezése
-	std::string getType() const;			// típus kiolvasása
-	std::string getBrand() const;			// márka kiolvasása
-	int getPower() const;					// teljesítmény kiolvasása
-	virtual std::string toString() const;	// adatok egyben szövegként kiíráshoz
+	void flip() {
+		if (state) {
+			state = false;
+		}
+		else {
+			state = true;
+		}
+	}
+
+	std::string isOn() {
+		return lampName + "turned " + (state ? "ON" : "OFF");
+	}
+
+	//Lamp(std::string lampname);
+	//Lamp& operator=(Lamp& other);
+
+
+	//void setRoom(std::string);				// a lámpa helyének beállítása
+	//std::string getRoom() const;			// a lámpa helyének lekérdezése
+	//std::string getType() const;			// típus kiolvasása
+	//std::string getBrand() const;			// márka kiolvasása
+	//int getPower() const;					// teljesítmény kiolvasása
+	//virtual std::string toString() const;	// adatok egyben szövegként kiíráshoz
 
 protected:
 	bool state;						// ki-be kapcsolt állapot
-	std::string room;				// lámpa helye
-	const std::string type;			// a lámpa tipusa
-	const std::string brand;		// a lámpa márkája
-	const Power pwr;				// teljesítmény
+	const std::string lampName;			// a lámpa tipusa
+
+	//std::string room;				// lámpa helye
+	//const std::string brand;		// a lámpa márkája
+	//const Power pwr;				// teljesítmény
 };
 
 class DimmableLamp : public Lamp {
 public:
 	DimmableLamp();
+
+
+
+
 	DimmableLamp(int dimRange, int dimBrightness);
 	DimmableLamp(std::string type, std::string brand, int pwrValue, std::string pwrUnit, int dimRange, int dimBrightness);
 	void setBrightness(int value);                  // fényerõ beállítása
@@ -82,36 +102,28 @@ private:
 
 Power::Power(int val, std::string unitName) :value(val), unit(unitName) {}
 
-Lamp::Lamp() : pwr(100, "W"), type("LED"), brand("n/a") {
-	state = false;
-}
+//Lamp::Lamp() : pwr(100, "W"), lampName("LED"), brand("n/a") {
+//	state = false;
+//}
 
-Lamp::Lamp(std::string type, std::string brand, int pwrVal, std::string pwrUnit)
-	: pwr(pwrVal, pwrUnit), type(type), brand(brand) {
-	state = false;
-}
+//Lamp& Lamp::operator=(Lamp& other) { return *this; }
 
-Lamp& Lamp::operator=(Lamp& other) { return *this; }
 
-void Lamp::setState(bool OnOff) { state = OnOff; }
-
-bool Lamp::getState() { return state; }
-
-void Lamp::setRoom(std::string r) { room = r; }
-
-std::string Lamp::getRoom() const { return room; }
-
-std::string Lamp::getType() const { return type; }
-
-std::string Lamp::getBrand() const { return brand; }
-
-int Lamp::getPower() const { return pwr.value; }
-
-std::string Lamp::toString() const {
-	return brand + " " + type
-		+ " (" + std::to_string(pwr.value) + pwr.unit + "): "
-		+ (state ? "be" : "ki");
-}
+//void Lamp::setRoom(std::string r) { room = r; }
+//
+//std::string Lamp::getRoom() const { return room; }
+//
+//std::string Lamp::getType() const { return lampName; }
+//
+//std::string Lamp::getBrand() const { return brand; }
+//
+//int Lamp::getPower() const { return pwr.value; }
+//
+//std::string Lamp::toString() const {
+//	return brand + " " + lampName
+//		+ " (" + std::to_string(pwr.value) + pwr.unit + "): "
+//		+ (state ? "be" : "ki");
+//}
 
 DimmableLamp::DimmableLamp()
 	: Lamp("LED", "n/a", 100, "W"), range(100) {
@@ -137,7 +149,7 @@ void DimmableLamp::setBrightness(int value) {
 int DimmableLamp::getBrightness() { return brightness; }
 
 std::string DimmableLamp::toString() const {
-	return brand + " " + type
+	return brand + " " + lampName
 		+ " (" + std::to_string(pwr.value) + pwr.unit + "): "
 		+ (state ? "be" : "ki") + " [dim is: " + std::to_string(brightness) + "/" + std::to_string(range) + "]";
 
