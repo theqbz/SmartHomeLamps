@@ -13,9 +13,12 @@ class Lamp
 public:
 	Lamp();
 	Lamp(std::string type, std::string brand, int pwrValue, std::string pwrUnit);
+	Lamp& operator=(Lamp& other);
 
 	void setState(bool OnOff);				// ki-be kapcsoló
 	bool getState();						// ki-be kapcsolt állapot lekérdezése
+	void setRoom(std::string);				// a lámpa helyének beállítása
+	std::string getRoom() const;			// a lámpa helyének lekérdezése
 	std::string getType() const;			// típus kiolvasása
 	std::string getBrand() const;			// márka kiolvasása
 	int getPower() const;					// teljesítmény kiolvasása
@@ -23,7 +26,8 @@ public:
 
 protected:
 	bool state;						// ki-be kapcsolt állapot
-	const std::string type;			// a lámpa tipusa/markaja
+	std::string room;				// lámpa helye
+	const std::string type;			// a lámpa tipusa
 	const std::string brand;		// a lámpa márkája
 	const Power pwr;				// teljesítmény
 };

@@ -11,9 +11,15 @@ Lamp::Lamp(std::string type, std::string brand, int pwrVal, std::string pwrUnit)
 	state = false;
 }
 
+Lamp& Lamp::operator=(Lamp& other) { return *this; }
+
 void Lamp::setState(bool OnOff) { state = OnOff; }
 
 bool Lamp::getState() { return state; }
+
+void Lamp::setRoom(std::string r) { room = r; }
+
+std::string Lamp::getRoom() const { return room; }
 
 std::string Lamp::getType() const { return type; }
 

@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 #include "Lamp.h"
 
 class DimmableLamp :
@@ -14,6 +15,5 @@ public:
 
 private:
 	const int range;    // fényerõ intervallum: [0; range]
-	int brightness;          // aktuális fényerõ
+	int brightness;     // aktuális fényerõ
 };
-
